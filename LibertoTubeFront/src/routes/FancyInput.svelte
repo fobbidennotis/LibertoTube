@@ -13,20 +13,21 @@
   
   <style>
     .fancy-input {
-      display: flex;
       align-items: center;
       margin: 20px;
     }
   
     input {
-      flex: 1;
+      margin: 5px;
       padding: 10px;
       border: 1px solid #3d3d3d;
       border-radius: 4px;
       margin-right: 10px;
+      width: 40%;
     }
   
     select {
+      margin: 5px;
       padding: 10px;
       border: 1px solid #3d3d3d;
       background: white;
@@ -41,7 +42,7 @@
     }
   </style>
   
-  <div class="fancy-input">
+  <div class="fancy-input mx-auto">
     <input type="text" bind:value={inputValue} placeholder="Enter your input..." />
     <select bind:value={selectedDomain} disabled={domains.length === 0}>
       {#each domains as domain}
