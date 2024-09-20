@@ -1,5 +1,6 @@
 <script lang="ts">
   import StatusItem from './StatusItem.svelte';
+  import FancyInput from './FancyInput.svelte';
 
   let proxy_status_data = {
     "gfbrowser.com": "availible",
@@ -11,6 +12,7 @@
   <h2 class="mt-5">List of available alternative domains:</h2>
   <div class="container">
     <div class="col">
+      <FancyInput {proxy_status_data} />
       {#each Object.entries(proxy_status_data) as [resource, status]}
         <StatusItem {resource} {status} />
       {/each}
