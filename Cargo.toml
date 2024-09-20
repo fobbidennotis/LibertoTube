@@ -1,0 +1,10 @@
+[package]
+name = "libertotube"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.5"
+mainline = { version = "2.0.1", features = ["async"] }
+reqwest = { version = "0.12.7", features = ["rustls-tls"] }
+tokio = { version = "1.40.0", features = ["full"] }
