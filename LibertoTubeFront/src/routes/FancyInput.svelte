@@ -4,7 +4,7 @@
   
     let inputValue = '';
     let selectedDomain = '';
-    const domains = Object.keys(proxy_status_data).filter(domain => proxy_status_data[domain] === "availible"); // Filter for available domains
+    const domains = Object.keys(proxy_status_data).filter(domain => proxy_status_data[domain] === "available");
   
     if (domains.length > 0) {
       selectedDomain = domains[0];
