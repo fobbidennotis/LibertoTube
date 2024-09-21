@@ -19,7 +19,7 @@
     };
   
     onMount(() => {
-      const intervalId = setInterval(switchText, 2000); // Wait 2.5 seconds between transitions
+      const intervalId = setInterval(switchText, 2000); // Wait 2 seconds between transitions
   
       return () => {
         clearInterval(intervalId);
@@ -29,26 +29,39 @@
   
   <style>
     .text-box {
-      margin-right: 20px;
       position: relative;
-      height: 3rem; /* Adjust to match the height of your text */
+      height: 6rem; /* Adjust to match the height of your text */
       overflow: hidden;
       display: flex;
-      width: 12rem;
-      justify-content: right;
+      justify-content: center; /* Centering text */
       align-items: center;
+      width: 100%; /* Full width */
     }
   
     .text {
-      font-size: 2rem; /* Adjust text size */
-      position: absolute;
-      text-align: right;
+      position: relative;
+      text-align: center;
+      font-size: 5rem; /* Default text size */
+      transition: font-size 0.3s ease; /* Smooth font size transition */
+    }
+  
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .text {
+        font-size: 3rem; /* Adjust text size for smaller screens */
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .text {
+        font-size: 2rem; /* Further adjust for mobile */
+      }
     }
   </style>
   
   <div class="text-box">
     {#if isVisible}
-      <div class="text" transition:fly="{{ y: 50, duration: 500 }}">
+      <div class="text" transition:fly={{ y: 50, duration: 500 }}>
         {#await $currentText}
           Loading...
         {:then text}
@@ -56,7 +69,7 @@
         {/await}
       </div>
     {:else}
-      <div class="text" transition:fly="{{ y: -50, duration: 500 }}"></div>
+      <div class="text" transition:fly={{ y: -50, duration: 500 }}></div>
     {/if}
   </div>
   

@@ -4,7 +4,7 @@
   import AnimatedText from './AnimatedText.svelte';
   import { onMount } from 'svelte';
 
-  let texts_to_show = ['High-speed', 'Anonymous', 'Practical'];
+  let texts_to_show = ['Confident', 'Anonymous', 'Practical'];
 
   let proxy_status_data = {
     "gfbrowser.com": "available",
@@ -59,18 +59,19 @@
 </script>
 
 <style>
-  body {
+  :global(body) {
     font-family: 'Poppins', sans-serif;
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   .landing-section, .main-content-section {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    font-size: 2rem;
+    align-items: center;
     text-align: center;
     position: relative;
+    padding: 2rem;
   }
 
   .landing-section {
@@ -79,7 +80,6 @@
 
   .main-content-section {
     background: linear-gradient(45deg, #ffffff, #d4d4d4);
-    padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
@@ -132,6 +132,7 @@
     transform: translateX(-50%);
     animation: bounce 1s infinite;
   }
+  
 
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -149,42 +150,57 @@
     border-bottom: 2px solid #eaeaea;
     padding-bottom: 0.5rem;
   }
+
+  @media (max-width: 768px) {
+    .landing-title {
+      font-size: 2.5rem !important;
+    }
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.2rem;
+    }
+  }
 </style>
 
-<!-- Landing Section -->
 <div class="landing-section">
-  <div class="col">    
-    <div class="row">
-      <h1 style="font-size: 300%;" class="landing-title m-3">LIBERTOTUBE</h1>
-    </div>
-    <div class="row">
-      <span class="d-flex justify-content-center">
-        <AnimatedText texts={texts_to_show} /> social media frontends
-      </span>
-    </div> 
-    <div class="row mt-4">
-      <span class="d-flex justify-content-center">
-        <button on:click={scrollToContent} type="button" class="btn btn-light border border-radius">Try it out!</button>
-      </span>
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 col-md-8">
+        <div class="d-flex align-items-center justify-content-center mb-3">
+          <h1 class="landing-title mb-0" style="font-size: 10vh;"><b>LIBERTOTUBE</b></h1>
+          <img src="/logo.svg" alt="Logo" class="logo ms-3" style="height: 10vh;"/>
+        </div>        
+        <div class="mb-3">
+          <AnimatedText texts={texts_to_show} />
+        </div>
+        <p class="mb-4" style="font-size: 275%;">We provide easy monitoring of alternative social media frontends and tools for easy distribution in countries with highly-restricted internet access</p>
+        <button on:click={scrollToContent} type="button" class="btn btn-light border border-radius-10px" style="font-size: 250%;">Try it out!</button>
+      </div>
     </div>
     <div class="scroll-indicator">
       <i class="fas fa-chevron-down"></i>
     </div>
   </div>
-  <div class="cursor-circle" style="left: {cursorCircle.x - 10}px; top: {cursorCircle.y - 10}px;"></div>
 </div>
 
-<!-- Main Content Section -->
 <div class="main-content-section" bind:this={contentSection}>
   <div class="container">
-    <h1>Enter your youtube URL:</h1>
-    <FancyInput {proxy_status_data} />
-    <h2>List of available alternative domains:</h2>
-    <div class="col">
-      {#each Object.entries(proxy_status_data) as [resource, status]}
-        <StatusItem {resource} {status} />
-      {/each}
+    <h1 class="mb-4" style="font-size: 500%;"><b>Enter your YouTube URL:</b></h1>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <FancyInput {proxy_status_data} />
+      </div>
+    </div>
+    <h2 class="mt-5 mb-4" style="font-size: 500%;">List of available alternative domains:</h2>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8" style="font-size: 250%;">
+        {#each Object.entries(proxy_status_data) as [resource, status]}
+          <StatusItem {resource} {status} />
+        {/each}
+      </div>
     </div>
   </div>
-  <div class="cursor-circle" style="left: {cursorCircle.x - 10}px; top: {cursorCircle.y - 10}px;"></div>
 </div>
+
+<div class="cursor-circle" style="left: {cursorCircle.x - 10}px; top: {cursorCircle.y - 10}px;"></div>

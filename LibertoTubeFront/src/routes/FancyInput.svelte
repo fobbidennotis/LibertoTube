@@ -104,9 +104,9 @@
 
 <div class="fancy-input-container">
   <div class="fancy-input mx-auto">
-    <input type="text" bind:value={inputValue} placeholder="Enter your input..." />
+    <input type="text" style="font-size: 250%; width: 45rem;" bind:value={inputValue} placeholder="Enter your input..." />
     <div class="custom-dropdown">
-      <div class="dropdown-button" on:click={toggleDropdown}>
+      <div class="dropdown-button" style="font-size: 250%;" on:click={toggleDropdown}>
         <span>{selectedDomain || 'Select Domain'}</span>
         <span class="dropdown-arrow" class:open={dropdownOpen}>▼</span>
       </div>
