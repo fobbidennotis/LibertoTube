@@ -1,1 +1,4 @@
 /target
+.env
+proxies.json
+checkers.json
