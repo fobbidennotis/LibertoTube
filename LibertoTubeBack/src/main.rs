@@ -72,6 +72,7 @@ async fn node_server() {
 
     let app = Router::new()
         .route("/", axum::routing::get(get_proxies))
+        .layer(tower_http::cors::CorsLayer::new().very_permissive())
         .with_state(proxies.clone());
     let listener = tokio::net::TcpListener::bind("0.0.0.0:7777").await.unwrap();
     axum::serve(listener, app).await.unwrap();
