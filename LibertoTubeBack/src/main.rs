@@ -136,6 +136,8 @@ async fn checkers_result_fetcher_worker(
                         let sum: usize = speeds.iter().sum();
                         (proxy, sum / speeds.len())
                     })
+                    .filter(|(_proxy, speed)| *speed != 0)
+                    .take(3)
                     .collect();
                 proxies.sort_by_key(|(_k, v)| *v);
                 (site, proxies.into_iter().map(|(k, _v)| k).collect())

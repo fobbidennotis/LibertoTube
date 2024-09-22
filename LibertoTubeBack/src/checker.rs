@@ -36,8 +36,8 @@ pub async fn checker_server(announcer_pubkey: VerifyingKey, checker_key: Signing
 
             if last_seq != *msg.seq() {
                 let value = std::str::from_utf8(msg.value()).unwrap();
-                last_seq = *msg.seq();
                 *proxies_to_check.write().await = serde_json::from_str(value).unwrap();
+                last_seq = *msg.seq();
             }
 
             tokio::time::sleep(std::time::Duration::from_secs(1)).await;
