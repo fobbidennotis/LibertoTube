@@ -7,15 +7,13 @@ import hashlib
 
 bot = Bot(token=os.environ["BOT_TOKEN"])
 dp = Dispatcher()
-domain_statuses = {
-    "gfbrowser.com/youtube": "available",
-    "downexample.com/youtube": "down",
-}
+domains = []
 
 
-async def update_domain_statuses() -> None:
-    global domain_statuses
-    domain_statuses = get("http://127.0.0.1:7777").json()
+async def update_domains() -> None:
+    global domains
+    domains = get("127.0.0.1:7777").json()
+    print(domains)
 
 
 async def original_link_to_alt_domain(alt_domain, original_link) -> str:
@@ -43,10 +41,11 @@ async def generate_result_article(
 @dp.inline_query()
 async def inline_query_handler(query: InlineQuery) -> None:
     if query:
+        print(query.query)
+        await update_domains()
         query_result_array: list[InlineQueryResultArticle] = [
             await generate_result_article(alt_domain, query.query)
-            for alt_domain in domain_statuses.keys()
-            if domain_statuses[alt_domain] == "available"
+            for alt_domain in domains
         ]
         print(query_result_array)
 

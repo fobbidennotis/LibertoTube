@@ -1,15 +1,9 @@
 <script lang="ts">
-  import StatusItem from './StatusItem.svelte';
   import FancyInput from './FancyInput.svelte';
   import AnimatedText from './AnimatedText.svelte';
   import { onMount } from 'svelte';
   
-  let texts_to_show = ['Confident', 'Anonymous', 'Practical'];
-  let proxy_status_data = {
-    "gfbrowser.com/youtube": "available",
-    "yetanotherexample.com": "available",
-    "down_example.com": "down"
-  };
+  let texts_to_show = ['Доступно', 'Анонимно', 'Практично', 'Легко'];
   let contentSection: HTMLElement | null = null;
   let isScrolling = false;
   let windowWidth = 0;
@@ -90,7 +84,6 @@
     .main-content-section {
       background: linear-gradient(45deg, #ffffff, #d4d4d4);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
     }
   
     .container {
@@ -148,15 +141,12 @@
       40% { transform: translateY(-10px); }
       60% { transform: translateY(-5px); }
     }
-  
-    h1, h2 {
-      border-bottom: 2px solid #eaeaea;
-      padding-bottom: 0.5rem;
-    }
-  
+    
     .landing-title {
       font-size: clamp(2rem, 8vw, 6rem);
       margin-bottom: 1rem;
+      border-bottom: 2px solid #595959;
+      padding-bottom: 0.5rem;
     }
   
     .subtitle {
@@ -171,6 +161,8 @@
     .logo {
       height: clamp(40px, 10vw, 80px);
       margin-right: 1rem;
+      position: relative;
+      bottom: 1rem;
     }
   
     @media (max-width: 1060px) {
@@ -187,16 +179,6 @@
         display: none;
       }
     }
-  
-    .alternative-domains {
-      margin-top: 2rem;
-    }
-  
-    @media (max-width: 1280px) {
-      .alternative-domains {
-        display: none;
-      }
-    }
   </style>
   
   <div class="landing-section">
@@ -204,19 +186,21 @@
       <div class="row justify-content-center align-items-center">
         <div class="col-12">
           <div class="d-flex align-items-center justify-content-center mb-3">
-            <img src="/logo.svg" alt="Logo" class="logo"/>
-            <h1 class="landing-title"><b>LIBERTOTUBE</b></h1>
+            <h1 class="landing-title">
+              <img src="/logo.svg" alt="Logo" class="logo"/>
+              <b>LIBERTOTUBE</b>
+            </h1>
           </div>
           <div class="mb-3">
             <AnimatedText texts={texts_to_show} />
           </div>
           {#if windowWidth > 768}
             <p class="subtitle mb-4">
-              We provide easy monitoring of alternative social media frontends and tools for easy distribution in countries with highly-restricted internet access
+              Агрегатор альтернативных доменов для Youtube в регионах мира с строгой цензурой интернета
             </p>
           {/if}
           <button on:click={scrollToContent} type="button" class="btn btn-light border border-radius-10px">
-            Try it out!
+            Попробуйте!
           </button>
         </div>
       </div>
@@ -228,24 +212,12 @@
   
   <div class="main-content-section" bind:this={contentSection}>
     <div class="container">
-      <h1 class="content-title mb-4"><b>Enter your YouTube URL:</b></h1>
+      <h1 class="content-title mb-4"><b>Введите ссылку для конвертации:</b></h1>
       <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-          <FancyInput {proxy_status_data} />
+          <FancyInput/>
         </div>
       </div>
-      {#if showAlternativeDomains}
-        <div class="alternative-domains">
-          <h2 class="content-title mt-5 mb-4">List of available alternative domains:</h2>
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-              {#each Object.entries(proxy_status_data) as [resource, status]}
-                <StatusItem {resource} {status} />
-              {/each}
-            </div>
-          </div>
-        </div>
-      {/if}
     </div>
   </div>
   

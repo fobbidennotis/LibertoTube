@@ -72,14 +72,14 @@ async fn node_server() {
 
     let app = Router::new()
         .route("/", axum::routing::get(get_proxies))
-        .layer(tower_http::cors::CorsLayer::new().very_permissive())
+        .layer(tower_http::cors::CorsLayer::very_permissive())
         .with_state(proxies.clone());
     let listener = tokio::net::TcpListener::bind("0.0.0.0:7777").await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }
 
 async fn get_proxies(State(proxies): State<Arc<RwLock<HashMap<String, Vec<String>>>>>) -> String {
-    serde_json::to_string(&*proxies.read().await).unwrap()
+    serde_json::to_string(&*proxies.read().await["youtube.com"]).unwrap()
 }
 
 async fn checkers_fetcher_worker(checkers: Arc<RwLock<Vec<String>>>) {
