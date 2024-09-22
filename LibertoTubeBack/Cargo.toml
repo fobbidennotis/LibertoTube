@@ -1,0 +1,17 @@
+[package]
+name = "libertotube"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.5"
+dotenv = "0.15.0"
+ed25519-dalek = { version = "2.1.1", features = ["rand_core"] }
+mainline = { version = "2.0.1", features = ["async"] }
+rand = "0.8.5"
+reqwest = { version = "0.12.7", features = ["rustls-tls"] }
+rustyline = "14.0.0"
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
+tokio = { version = "1.40.0", features = ["full"] }
+url = "2.5.2"
