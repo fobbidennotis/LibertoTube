@@ -74,16 +74,16 @@
     border: 2px solid #3d3d3d;
     border-radius: 10px;
     z-index: 1000;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: block !important;
   }
-  .fancy-input-container .dropdown-menu div {
+  .fancy-input-container .dropdown-menu h2 {
     padding: 10px;
     cursor: pointer;
   }
-  .fancy-input-container .dropdown-menu div:hover {
+  .fancy-input-container .dropdown-menu h2:hover {
     background-color: #ffcc00;
   }
   .fancy-input-container .output {
@@ -103,8 +103,7 @@
 </style>
 
 <div class="fancy-input-container">
-  <div class="fancy-input mx-auto">
-    <input type="text" style="font-size: 250%; width: 45rem;" bind:value={inputValue} placeholder="Enter your input..." />
+    <input type="text" style="font-size: 250%; width: 45rem;" bind:value={inputValue} placeholder="Enter your URL..." />
     <div class="custom-dropdown">
       <div class="dropdown-button" style="font-size: 250%;" on:click={toggleDropdown}>
         <span>{selectedDomain || 'Select Domain'}</span>
@@ -113,16 +112,13 @@
       {#if dropdownOpen}
         <div class="dropdown-menu">
           {#each domains as domain}
-            <div on:click={() => selectDomain(domain)}>{domain}</div>
+            <h2 on:click={() => selectDomain(domain)}>{domain}</h2>
           {/each}
         </div>
       {/if}
-    </div>
   </div>
 
-  {#if selectedDomain && inputValue}
-    <div class="output">
-      {selectedDomain}/{inputValue}
-    </div>
-  {/if}
+  <div class="output">
+    <h1><a style="color: #ff9900;" href="https://{selectDomain}/{inputValue.split('/').pop()}"><b>{selectedDomain}/{inputValue.split('/').pop()}</b></a></h1>
+  </div>
 </div>

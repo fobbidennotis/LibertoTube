@@ -7,7 +7,7 @@
   let texts_to_show = ['Confident', 'Anonymous', 'Practical'];
 
   let proxy_status_data = {
-    "gfbrowser.com": "available",
+    "gfbrowser.com/youtube": "available",
     "yetanotherexample.com": "available",
     "down_example.com": "down"
   };
@@ -186,7 +186,7 @@
 
 <div class="main-content-section" bind:this={contentSection}>
   <div class="container">
-    <h1 class="mb-4" style="font-size: 500%;"><b>Enter your YouTube URL:</b></h1>
+    <h1 class="mb-1" style="font-size: 500%;"><b>Enter your YouTube URL:</b></h1>
     <div class="row justify-content-center">
       <div class="col-12 col-md-8">
         <FancyInput {proxy_status_data} />
