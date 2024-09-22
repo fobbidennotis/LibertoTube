@@ -119,6 +119,6 @@
   </div>
 
   <div class="output">
-    <h1><a style="color: #ff9900;" href="https://{selectDomain}/{inputValue.split('/').pop()}"><b>{selectedDomain}/{inputValue.split('/').pop()}</b></a></h1>
+    <h1><a style="color: #ff9900;" href="https://{selectedDomain}/{inputValue.split('/').pop()}"><b>{selectedDomain}/{inputValue.split('/').pop()}</b></a></h1>
   </div>
 </div>
