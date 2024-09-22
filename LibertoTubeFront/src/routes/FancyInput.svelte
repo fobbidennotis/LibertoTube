@@ -4,68 +4,80 @@
   let selectedDomain = '';
   let dropdownOpen = false;
   let domains = [];
-
+ 
   $: domains = Object.keys(proxy_status_data).filter(domain => proxy_status_data[domain] === "available");
   $: if (domains.length > 0 && !selectedDomain) {
     selectedDomain = domains[0];
   }
-
+ 
   function toggleDropdown() {
     dropdownOpen = !dropdownOpen;
   }
-
+ 
   function selectDomain(domain) {
     selectedDomain = domain;
     dropdownOpen = false;
   }
-</script>
-
-<style>
-  /* Use more specific selectors to increase CSS specificity */
-  .fancy-input-container .fancy-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    position: relative;
+ </script>
+ 
+ <style>
+  .fancy-input-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
   }
-  .fancy-input-container input {
-    margin: 5px;
-    padding: 10px;
+ 
+  .fancy-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+ 
+  input, .custom-dropdown {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px 0;
+  }
+ 
+  input {
+    padding: 15px;
     border: 2px solid #3d3d3d;
     border-radius: 10px;
     background-color: #e8e8e8;
-    width: 40%;
-    font-size: 1rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     transition: border-color 0.3s ease;
   }
-  .fancy-input-container input:focus {
+ 
+  input:focus {
     outline: none;
     border-color: #ffcc00;
   }
-  .fancy-input-container .custom-dropdown {
+ 
+  .custom-dropdown {
     position: relative;
-    margin: 5px;
     cursor: pointer;
   }
-  .fancy-input-container .dropdown-button {
-    padding: 10px;
+ 
+  .dropdown-button {
+    padding: 15px;
     border: 2px solid #3d3d3d;
     border-radius: 10px;
     background-color: #e8e8e8;
-    font-size: 1rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     transition: border-color 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: auto;
   }
-  .fancy-input-container .dropdown-button:hover,
-  .fancy-input-container .dropdown-button:focus {
+ 
+  .dropdown-button:hover,
+  .dropdown-button:focus {
     outline: none;
     border-color: #ffcc00;
   }
-  .fancy-input-container .dropdown-menu {
+ 
+  .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -78,34 +90,48 @@
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: block !important;
-  }
-  .fancy-input-container .dropdown-menu h2 {
+ }
+ 
+  .dropdown-menu h2 {
     padding: 10px;
     cursor: pointer;
+    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+    margin: 0;
   }
-  .fancy-input-container .dropdown-menu h2:hover {
+ 
+  .dropdown-menu h2:hover {
     background-color: #ffcc00;
   }
-  .fancy-input-container .output {
+ 
+  .output {
     margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     font-weight: bold;
     text-align: center;
     color: #3d3d3d;
   }
-  .fancy-input-container .dropdown-arrow {
+ 
+  .dropdown-arrow {
     margin-left: 10px;
     transition: transform 0.3s ease;
   }
-  .fancy-input-container .dropdown-arrow.open {
+ 
+  .dropdown-arrow.open {
     transform: rotate(180deg);
   }
-</style>
-
-<div class="fancy-input-container">
-    <input type="text" style="font-size: 250%; width: 45rem;" bind:value={inputValue} placeholder="Enter your URL..." />
+ 
+  @media (max-width: 600px) {
+    .fancy-input {
+      padding: 0 10px;
+    }
+  }
+ </style>
+ 
+ <div class="fancy-input-container">
+  <div class="fancy-input">
+    <input type="text" bind:value={inputValue} placeholder="Enter your URL..." />
     <div class="custom-dropdown">
-      <div class="dropdown-button" style="font-size: 250%;" on:click={toggleDropdown}>
+      <div class="dropdown-button" on:click={toggleDropdown}>
         <span>{selectedDomain || 'Select Domain'}</span>
         <span class="dropdown-arrow" class:open={dropdownOpen}>▼</span>
       </div>
@@ -116,9 +142,9 @@
           {/each}
         </div>
       {/if}
+    </div>
   </div>
-
   <div class="output">
     <h1><a style="color: #ff9900;" href="https://{selectedDomain}/{inputValue.split('/').pop()}"><b>{selectedDomain}/{inputValue.split('/').pop()}</b></a></h1>
   </div>
-</div>
+ </div>
